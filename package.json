@@ -1,0 +1,17 @@
+{
+  "name": "ed-stars-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-twig": "1.2.0",
+    "lodash": "^4.17.11",
+    "twig": "^1.12.0"
+  }
+}
