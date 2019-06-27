@@ -13,9 +13,40 @@
         </div>
 
         {% for grp in stars %}
-            {% for c in grp %}
-                {{c}}
+            <div class="row">
+                <h3>{{grp[0]}}</h3>
+                {% for sub_grp in grp[1] %}
+                <div class="col-xs-3 float-left">
+                    <h4>{{sub_grp[0]}}</h4>
+                    {% for star in sub_grp[1] %}
+                    <div style="min-height: 200px">
+                        {% if star.pictures.length > 0 %}
+                        <img src="{{star.pictures[0]}}" class="img-responsive" />
+                        {% endif %}
+
+                        {% if star.pictures.length == 0 %}
+                            <div style="height: calc(20vh); width: 100%; background: #000; color: #fff; padding-top: 8vh;" class="text-center">
+                                NO IMAGE
+                            </div>
+                        {% endif %}
+                        <div>
+                            {{star.system_name}} - {{star.body_name}} - {{star.surface_temperature}} K - {{star.radius}}
+
+                            {% if star.pictures.length > 0 %}
+                            High rez:
+                                {% for pic in star.pictures %}
+                                    <a href="{{pic}}" target="_blank">
+                                    #{{loop.index}}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
+            </div>
         {% endfor %}
 
 

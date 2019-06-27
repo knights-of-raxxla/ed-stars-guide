@@ -5,8 +5,6 @@ const _ = require('lodash');
 let data = require('./data/stars_ok.json');
 let stars = tidyStars(data.route);
 
-console.log(Array.isArray(stars));
-
 gulp.task('twig', function() {
     return gulp.src(['./src/**/**.twig', '!./src/**/_*.twig'])
         .pipe(twig({
@@ -31,13 +29,22 @@ gulp.task('twig', function() {
 
 function tidyStars(stars) {
     return _.chain(stars)
+        .map(s => {
+            if (!s.pictures)
+                s.pictures = [];
+            return s;
+        })
         .orderBy('surface_temperature', 'asc')
         .groupBy('sub_type')
         .map((stars, k) => {
             let lums =  _.groupBy(stars, 'luminosity')
-            let o = {};
-            o[k] =  lums;
-            return o;
-        }).value();
+            lums = _.map(lums, (stars, k) => {
+                return [k, stars]
+            });
+            return [
+                k,
+                lums
+            ];
+        }).orderBy(g => g[0], 'asc').value();
 
 }
